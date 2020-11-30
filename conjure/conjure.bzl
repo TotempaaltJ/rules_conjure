@@ -76,7 +76,11 @@ def _impl_conjure_generate_ir(ctx):
         progress_message = "Generating Conjure IR files into '{}'".format(ir.path),
     )
 
-    return [DefaultInfo(files = depset([ir]))]
+    return [DefaultInfo(
+        files = depset([ir]),
+        # for use as a sh_* dependency
+        data_runfiles = ctx.runfiles(files=[ir]),
+    )]
 
 conjure_generate_ir = rule(
     implementation = _impl_conjure_generate_ir,
