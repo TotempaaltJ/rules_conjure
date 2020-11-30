@@ -24,7 +24,11 @@ def _impl_conjure_typescript_generate(ctx):
         use_default_shell_env = True,
     )
 
-    return [DefaultInfo(files = depset([tree]))]
+    return [DefaultInfo(
+        files = depset([tree]),
+        # for use as a sh_* dependency
+        data_runfiles = ctx.runfiles(files=[tree]),
+    )]
 
 conjure_typescript_generate = rule(
     implementation = _impl_conjure_typescript_generate,

@@ -1,0 +1,178 @@
+{
+  "version" : 1,
+  "errors" : [ ],
+  "types" : [ {
+    "type" : "alias",
+    "alias" : {
+      "typeName" : {
+        "name" : "Airport",
+        "package" : "com.example.api"
+      },
+      "alias" : {
+        "type" : "primitive",
+        "primitive" : "STRING"
+      }
+    }
+  }, {
+    "type" : "object",
+    "object" : {
+      "typeName" : {
+        "name" : "Connection",
+        "package" : "com.example.api"
+      },
+      "fields" : [ {
+        "fieldName" : "from",
+        "type" : {
+          "type" : "reference",
+          "reference" : {
+            "name" : "Airport",
+            "package" : "com.example.api"
+          }
+        }
+      }, {
+        "fieldName" : "to",
+        "type" : {
+          "type" : "reference",
+          "reference" : {
+            "name" : "Airport",
+            "package" : "com.example.api"
+          }
+        }
+      }, {
+        "fieldName" : "number",
+        "type" : {
+          "type" : "primitive",
+          "primitive" : "STRING"
+        }
+      } ]
+    }
+  }, {
+    "type" : "object",
+    "object" : {
+      "typeName" : {
+        "name" : "SearchRequest",
+        "package" : "com.example.api"
+      },
+      "fields" : [ {
+        "fieldName" : "from",
+        "type" : {
+          "type" : "reference",
+          "reference" : {
+            "name" : "Airport",
+            "package" : "com.example.api"
+          }
+        }
+      }, {
+        "fieldName" : "to",
+        "type" : {
+          "type" : "reference",
+          "reference" : {
+            "name" : "Airport",
+            "package" : "com.example.api"
+          }
+        }
+      }, {
+        "fieldName" : "time",
+        "type" : {
+          "type" : "primitive",
+          "primitive" : "DATETIME"
+        }
+      } ]
+    }
+  }, {
+    "type" : "alias",
+    "alias" : {
+      "typeName" : {
+        "name" : "SearchResult",
+        "package" : "com.example.api"
+      },
+      "alias" : {
+        "type" : "list",
+        "list" : {
+          "itemType" : {
+            "type" : "reference",
+            "reference" : {
+              "name" : "Connection",
+              "package" : "com.example.api"
+            }
+          }
+        }
+      }
+    }
+  } ],
+  "services" : [ {
+    "serviceName" : {
+      "name" : "FlightSearchService",
+      "package" : "com.example.api"
+    },
+    "endpoints" : [ {
+      "endpointName" : "search",
+      "httpMethod" : "POST",
+      "httpPath" : "/flights/search",
+      "args" : [ {
+        "argName" : "request",
+        "type" : {
+          "type" : "reference",
+          "reference" : {
+            "name" : "SearchRequest",
+            "package" : "com.example.api"
+          }
+        },
+        "paramType" : {
+          "type" : "body",
+          "body" : { }
+        },
+        "markers" : [ ]
+      } ],
+      "returns" : {
+        "type" : "reference",
+        "reference" : {
+          "name" : "SearchResult",
+          "package" : "com.example.api"
+        }
+      },
+      "docs" : "Returns the list of flight connections matching a given from/to/time request.",
+      "markers" : [ ]
+    }, {
+      "endpointName" : "list",
+      "httpMethod" : "GET",
+      "httpPath" : "/flights/list/{airport}/{time}",
+      "args" : [ {
+        "argName" : "airport",
+        "type" : {
+          "type" : "reference",
+          "reference" : {
+            "name" : "Airport",
+            "package" : "com.example.api"
+          }
+        },
+        "paramType" : {
+          "type" : "path",
+          "path" : { }
+        },
+        "markers" : [ ]
+      }, {
+        "argName" : "time",
+        "type" : {
+          "type" : "primitive",
+          "primitive" : "DATETIME"
+        },
+        "paramType" : {
+          "type" : "path",
+          "path" : { }
+        },
+        "markers" : [ ]
+      } ],
+      "returns" : {
+        "type" : "reference",
+        "reference" : {
+          "name" : "SearchResult",
+          "package" : "com.example.api"
+        }
+      },
+      "docs" : "Returns flights departing from the given airport on the given day.",
+      "markers" : [ ]
+    } ]
+  } ],
+  "extensions" : { }
+}

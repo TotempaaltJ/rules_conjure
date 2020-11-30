@@ -6,9 +6,9 @@ conjure_rust_generate(
     strip_prefix = "com.example.api",
 )
 
-sh_test(
+py_test(
     name = "validate_conjure_rust_test",
-    srcs = [":conjure_rust_validator.sh"],
+    srcs = [":validate_conjure_rust_test.py"],
     args = ["$(rootpath :conjure_rust_test)"],
     data = [":conjure_rust_test"],
 )

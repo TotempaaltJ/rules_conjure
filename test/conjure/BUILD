@@ -5,9 +5,9 @@ conjure_generate_ir(
     src = "api.conjure.yml",
 )
 
-sh_test(
+py_test(
     name = "validate_conjure_test",
-    srcs = [":conjure_validator.sh"],
+    srcs = [":validate_conjure_test.py"],
     args = ["$(rootpath :conjure_test)"],
     data = [":conjure_test"],
 )
