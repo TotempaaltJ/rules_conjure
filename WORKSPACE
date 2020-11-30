@@ -12,30 +12,14 @@ http_archive(
 )
 
 load("@io_bazel_rules_rust//rust:repositories.bzl", "rust_repositories")
-
 rust_repositories()
 
 load("@io_bazel_rules_rust//:workspace.bzl", "rust_workspace")
-
 rust_workspace()
 
 # Setup for Conjure
-load("//conjure:conjure.bzl", "conjure_repository")
-load("//conjure_rust:conjure_rust.bzl", "conjure_rust_repository")
-load("//conjure_typescript:conjure_typescript.bzl", "conjure_typescript_repositories")
-
-conjure_repository(
-    name = "conjure",
-)
-conjure_typescript_repositories()
-
-conjure_rust_repository(
-    name = "conjure_rust",
-)
-
-load("//conjure_rust/cargo:crates.bzl", "raze_fetch_remote_crates")
-
-raze_fetch_remote_crates()
+load("//:index.bzl", "conjure_repositories")
+conjure_repositories()
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 http_archive(
