@@ -1,0 +1,41 @@
+types:
+  definitions:
+    default-package: com.example.api
+    objects:
+
+      Airport:
+        alias: string
+      SearchRequest:
+        fields:
+          from: Airport
+          to: Airport
+          time: datetime
+      SearchResult:
+        alias: list<Connection>
+      Connection:
+        fields:
+          from: Airport
+          to: Airport
+          number: string
+
+services:
+  FlightSearchService:
+    name: Flight Search Service
+    package: com.example.api
+    base-path: /flights
+    endpoints:
+
+      search:
+        docs: Returns the list of flight connections matching a given from/to/time request.
+        http: POST /search
+        args:
+          request: SearchRequest
+        returns: SearchResult
+
+      list:
+        docs: Returns flights departing from the given airport on the given day.
+        http: GET /list/{airport}/{time}
+        args:
+          airport: Airport
+          time: datetime
+        returns: SearchResult

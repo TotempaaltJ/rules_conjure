@@ -1,0 +1,42 @@
+[package]
+name = "compile_with_bazel"
+version = "0.0.0"
+
+[workspace]
+
+# Mandatory (or Cargo tooling is unhappy)
+[lib]
+path = "fake_lib.rs"
+
+[dependencies]
+conjure-codegen = "0.7.2"
+structopt = "0.3"
+
+[package.metadata.raze]
+# The WORKSPACE relative path to the Cargo.toml working directory.
+workspace_path = "//conjure_rust/cargo"
+
+targets = ["x86_64-unknown-linux-gnu", "x86_64-apple-darwin"]
+
+genmode = "Remote"
+
+[package.metadata.raze.crates.serde.'1.0.116']
+gen_buildrs = true
+
+[package.metadata.raze.crates.proc-macro2.'1.0.24']
+additional_flags = [
+    "--cfg=use_proc_macro",
+    "--cfg=wrap_proc_macro",
+]
+
+[package.metadata.raze.crates.proc-macro-error.'1.0.4']
+gen_buildrs = true
+
+[package.metadata.raze.crates.libc.'0.2.80']
+gen_buildrs = true
+
+# [package.metadata.raze.crates.combine.'4.4.0']
+# broken awaiting https://github.com/google/cargo-raze/pull/282
+# for now, edit BUILD.combine-4.4.0.bazel to change:
+# - "@raze__tokio__0_2_23//:tokio": "tokio_03_dep",
+# + "@raze__tokio__0_2_23//:tokio": "tokio_02_dep",

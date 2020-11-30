@@ -1,0 +1,31 @@
+"""
+@generated
+cargo-raze generated Bazel file.
+
+DO NOT EDIT! Replaced on runs of cargo-raze
+"""
+
+package(default_visibility = ["//visibility:public"])
+
+licenses([
+    "notice",  # See individual crates for specific licenses
+])
+
+# Aliased targets
+alias(
+    name = "conjure_codegen",
+    actual = "@raze__conjure_codegen__0_7_2//:conjure_codegen",
+    tags = [
+        "cargo-raze",
+        "manual",
+    ],
+)
+
+alias(
+    name = "structopt",
+    actual = "@raze__structopt__0_3_20//:structopt",
+    tags = [
+        "cargo-raze",
+        "manual",
+    ],
+)
