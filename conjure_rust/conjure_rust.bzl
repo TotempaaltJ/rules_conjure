@@ -8,8 +8,12 @@ def _impl_conjure_rust_repository(ctx):
         stripPrefix = "conjure-rust-0.7.2",
     )
 
+    ctx.file("conjure_rust/BUILD")
+    ctx.execute(["ln", "-s", "cargo", "conjure_rust/cargo"])
+
     ctx.template("BUILD", ctx.attr._build_tpl, substitutions = {
         "{CONJURE_RUST_SRC_PATH}": "conjure_rust_repo/conjure-rust/src",
+        "{CARGO_SRC_PATH}": "conjure_rust/cargo/",
     })
 
 conjure_rust_repository = repository_rule(
@@ -17,6 +21,9 @@ conjure_rust_repository = repository_rule(
     attrs = {
         "_build_tpl": attr.label(
             default = "//conjure_rust:BUILD.tpl",
+        ),
+        "_cargo_tpl": attr.label(
+            default = "//conjure_rust:cargo",
         ),
     }
 )
